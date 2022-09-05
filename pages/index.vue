@@ -21,9 +21,11 @@
           />
         </Button>
       </div>
+    </div>
 
+    <div class="fixed inset-0">
       <div class="flex items-center justify-center h-full">
-        <div class="flex flex-col pb-32 space-y-2 md:pb-36 drop-shadow">
+        <div class="flex flex-col space-y-2 drop-shadow">
           <div class="text-xl font-semibold text-center text-white">
             First calm.<br />No distinguish, awareness
           </div>
