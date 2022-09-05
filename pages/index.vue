@@ -62,6 +62,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { saveAs } from 'file-saver'
+import { DEFAULT_USER_AGENT } from '~/plugins/user-agent'
 
 @Component({})
 export default class PagesIndex extends Vue {
@@ -72,7 +73,17 @@ export default class PagesIndex extends Vue {
     window.addEventListener('resize', this.onResize)
   }
 
-  onResize() {}
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize)
+  }
+
+  onResize() {
+    let userAgent = DEFAULT_USER_AGENT
+    if (typeof navigator !== 'undefined') {
+      userAgent = navigator.userAgent
+    }
+    this.$ua.reset(userAgent)
+  }
 
   async downloadPdf() {
     if (this.$ua.deviceType().type === 'mobile') {
