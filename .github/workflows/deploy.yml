@@ -7,6 +7,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: prod
 
     strategy:
       matrix:
@@ -24,7 +25,8 @@ jobs:
         run: npm ci
 
       - name: Deploy 🚀
-        run: npm run deploy
+        run: npx sls deploy --stage prod
         env:
+          NODE_ENV: prod
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

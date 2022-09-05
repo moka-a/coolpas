@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "env-cmd -e local nuxt",
-    "deploy:dev": "env-cmd -e dev sls deploy --stage dev",
-    "deploy": "sls deploy --stage prod"
+    "dev": "env-cmd -e local nuxt"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",

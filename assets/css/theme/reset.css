@@ -1,7 +1,6 @@
 html,
 body,
 #__nuxt {
-  @apply text-black bg-[#fdfbef] sm:bg-black;
   height: 100%;
   -webkit-tap-highlight-color: transparent;
   line-height: 150%;

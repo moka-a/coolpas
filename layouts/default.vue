@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <Nuxt class="bg-[#fdfbef]" />
+    <Nuxt />
 
     <template v-if="dialog">
       <DialogConfirm

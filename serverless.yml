@@ -3,7 +3,7 @@ service: coolpas
 plugins:
   - serverless-nuxt-plugin
   - serverless-apigw-binary
-  - serverless-domain-manager
+  # - serverless-domain-manager
 
 provider:
   name: aws
@@ -69,9 +69,9 @@ package:
     - '!node_modules/postcss-url/**'
 
 custom:
-  customDomain:
-    domainName: ${env:DOMAIN_NAME}
-    certificateArn: ${env:CERTIFICATE_ARN}
+  # customDomain:
+  #   domainName: ${env:DOMAIN_NAME}
+  #   certificateArn: ${env:CERTIFICATE_ARN}
   apigwBinary:
     types:
       - 'image/*'
