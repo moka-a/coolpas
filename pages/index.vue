@@ -51,14 +51,20 @@
         />
       </div>
     </template>
+
+    <template v-if="loading">
+      <DialogLoading />
+    </template>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { saveAs } from 'file-saver'
 
 @Component({})
 export default class PagesIndex extends Vue {
   explain = false
+  loading = false
 
   async downloadPdf() {
     if (this.$ua.deviceType().type === 'mobile') {
@@ -68,10 +74,17 @@ export default class PagesIndex extends Vue {
       return
     }
 
-    window.open(
-      'https://etc-everything-anywhere.s3.ap-northeast-2.amazonaws.com/first_calm_open.pdf',
-      '_blank'
-    )
+    this.loading = true
+    await this.downloadURI()
+    this.loading = false
+  }
+
+  async downloadURI() {
+    const url =
+      'https://etc-everything-anywhere.s3.ap-northeast-2.amazonaws.com/first_calm_open.pdf'
+
+    const blob = await fetch(url).then((r) => r.blob())
+    saveAs(blob, 'first_calm_open.pdf')
   }
 }
 </script>
