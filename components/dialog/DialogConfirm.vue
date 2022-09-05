@@ -23,9 +23,9 @@
         </template>
         <template v-else>
           <div class="flex">
-            <ButtonLargeBlack class="w-full" @click="$emit('confirm')">
+            <ButtonMediumWhite class="w-full" @click="$emit('confirm')">
               {{ confirmText || '확인' }}
-            </ButtonLargeBlack>
+            </ButtonMediumWhite>
           </div>
         </template>
       </div>

@@ -9,9 +9,9 @@
 
     <div class="fixed inset-0">
       <div class="flex items-center h-20 px-8 md:px-14 md:h-24 drop-shadow-sm">
-        <div
+        <Button
           class="flex items-center space-x-3 cursor-pointer"
-          @click="clickCoolpas"
+          @click="explain = true"
         >
           <div class="text-2xl font-semibold text-white">쿨파스</div>
 
@@ -19,23 +19,22 @@
             class="transform pointer-events-none w-7 h-7 rotate-12"
             :src="require('~/assets/images/coolcat.jpeg')"
           />
-        </div>
+        </Button>
       </div>
 
       <div class="flex items-center justify-center h-full">
-        <div class="flex flex-col pb-16 space-y-2 md:pb-24 drop-shadow">
+        <div class="flex flex-col pb-32 space-y-2 md:pb-36 drop-shadow">
           <div class="text-xl font-semibold text-center text-white">
             First calm,<br />No distinguish, awareness
           </div>
 
           <div class="flex items-center justify-center">
-            <a
+            <Button
               class="flex items-center px-3 py-0.5 text-center text-white border-[1.5px] border-white rounded cursor-pointer w-min"
-              href="https://etc-everything-anywhere.s3.ap-northeast-2.amazonaws.com/first_calm_open.pdf"
-              target="_blank"
+              @click="downloadPdf"
             >
               <div class="whitespace-nowrap">PDF</div>
-            </a>
+            </Button>
           </div>
         </div>
       </div>
@@ -61,8 +60,18 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class PagesIndex extends Vue {
   explain = false
 
-  clickCoolpas() {
-    this.explain = true
+  async downloadPdf() {
+    if (this.$ua.deviceType().type === 'mobile') {
+      await this.$dialog({
+        message: '데스크탑으로 접속 하시면 PDF를 다운받을 수 있습니다.',
+      })
+      return
+    }
+
+    window.open(
+      'https://etc-everything-anywhere.s3.ap-northeast-2.amazonaws.com/first_calm_open.pdf',
+      '_blank'
+    )
   }
 }
 </script>

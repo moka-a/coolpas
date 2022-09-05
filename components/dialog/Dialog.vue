@@ -6,7 +6,7 @@
         @click="onClickBackground"
       />
       <div
-        class="relative m-auto overflow-hidden shadow-xl rounded-xl w-72 content"
+        class="relative m-auto overflow-hidden rounded shadow-xl w-72 content"
       >
         <slot />
       </div>

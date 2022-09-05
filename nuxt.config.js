@@ -6,7 +6,7 @@ module.exports = {
     APP_VERSION: pkg.version,
   },
   head: {
-    title: 'Coolpas',
+    title: '쿨파스',
     htmlAttrs: {
       lang: 'kr',
     },
@@ -14,14 +14,13 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: '쿨파스',
+        content: 'web3.0 시대의 이너파스를 꿈 꿉니다.',
       },
       { charset: 'utf-8' },
       { name: 'theme-color', content: '#fdfbef' },
       {
         name: 'keyword',
-        content:
-          '쿨파스, 이너파스',
+        content: '쿨파스, 이너파스',
       },
       {
         name: 'viewport',
@@ -38,7 +37,7 @@ module.exports = {
       {
         hid: 'og:description',
         property: 'og:description',
-        content: '쿨파스',
+        content: 'web3.0 시대의 이너파스를 꿈 꿉니다.',
       },
       {
         hid: 'og:image',
@@ -66,6 +65,7 @@ module.exports = {
     '~/plugins/nl2br',
     '~/plugins/dialog',
     '~/plugins/share',
+    '~/plugins/user-agent',
     '~/plugins/v-outfocus',
   ],
 
