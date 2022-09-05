@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "env-cmd -e local nuxt",
     "deploy:dev": "env-cmd -e dev sls deploy --stage dev",
-    "deploy": "env-cmd -e prod sls deploy --stage prod"
+    "deploy": "sls deploy --stage prod"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
