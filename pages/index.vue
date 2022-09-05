@@ -25,7 +25,7 @@
       <div class="flex items-center justify-center h-full">
         <div class="flex flex-col pb-32 space-y-2 md:pb-36 drop-shadow">
           <div class="text-xl font-semibold text-center text-white">
-            First calm,<br />No distinguish, awareness
+            First calm.<br />No distinguish, awareness
           </div>
 
           <div class="flex items-center justify-center">
@@ -66,10 +66,16 @@ export default class PagesIndex extends Vue {
   explain = false
   loading = false
 
+  mounted() {
+    window.addEventListener('resize', this.onResize)
+  }
+
+  onResize() {}
+
   async downloadPdf() {
     if (this.$ua.deviceType().type === 'mobile') {
       await this.$dialog({
-        message: '데스크탑으로 접속 하시면 PDF를 다운받을 수 있습니다.',
+        message: '데스크탑으로 접속 하시면 PDF를 다운받으실 수 있습니다.',
       })
       return
     }
