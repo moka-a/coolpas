@@ -1,0 +1,49 @@
+html,
+body,
+#__nuxt {
+  @apply text-black bg-[#fdfbef] sm:bg-black;
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 150%;
+  word-break: break-all;
+  font-family: 'Pretendard';
+}
+
+#__layout {
+  height: 100%;
+}
+
+button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+textarea {
+  -webkit-appearance: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  background: rgba(248, 250, 251);
+  background-color: rgba(248, 250, 251) !important;
+}

@@ -1,0 +1,107 @@
+service: coolpas
+
+plugins:
+  - serverless-nuxt-plugin
+  - serverless-apigw-binary
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs14.x
+  apiGateway:
+    shouldStartNameWithService: true
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+
+package:
+  patterns:
+    - '!package-lock.json'
+    - '!assets/**'
+    - '!components/**'
+    - '!pages/**'
+    - '!gql/**'
+    - '!node_modules/**/*.cc'
+    - '!node_modules/**/*.png'
+    - '!node_modules/**/*.jpg'
+    - '!node_modules/**/*.gif'
+    - '!node_modules/**/*.psd'
+    - '!node_modules/**/*.yaml'
+    - '!node_modules/**/*.toml'
+    - '!node_modules/**/*.key'
+    - '!node_modules/**/*.pem'
+    - '!node_modules/**/*.otf'
+    - '!node_modules/**/*.eot'
+    - '!node_modules/**/*.svg'
+    - '!node_modules/**/*.ttf'
+    - '!node_modules/**/*.woff'
+    - '!node_modules/**/*.woff2'
+    - '!node_modules/**/*.less'
+    - '!node_modules/**/*.sass'
+    - '!node_modules/**/*.scss'
+    - '!node_modules/**/*.styl'
+    - '!node_modules/**/*.vue'
+    - '!node_modules/**/*.coffee'
+    - '!node_modules/**/*.ts'
+    - '!node_modules/**/*.tsx'
+    - '!node_modules/**/*.map'
+    - '!node_modules/**/*.ts.map'
+    - '!node_modules/**/*.js.map'
+    - '!node_modules/**/*.css.map'
+    - '!node_modules/bootstrap-vue/src/**'
+    - '!node_modules/@sentry/cli/**'
+    - '!node_modules/typescript/**'
+    - '!node_modules/ts-node/**'
+    - '!node_modules/@types/**'
+    - '!node_modules/ts-node/**'
+    - '!node_modules/yarn/**'
+    - '!node_modules/webpack/**'
+    - '!node_modules/postcss-preset-env/**'
+    - '!node_modules/postcss/**'
+    - '!node_modules/uglify-js/**'
+    - '!node_modules/nodemon/**'
+    - '!node_modules/vue-loader/**'
+    - '!node_modules/css-loader/**'
+    - '!node_modules/babel-loader/**'
+    - '!node_modules/cache-loader/**'
+    - '!node_modules/vue-style-loader/**'
+    - '!node_modules/postcss-url/**'
+
+custom:
+  customDomain:
+    domainName: ${env:DOMAIN_NAME}
+    certificateArn: ${env:CERTIFICATE_ARN}
+  apigwBinary:
+    types:
+      - 'image/*'
+  nuxt:
+    version: v${file(./package.json):version}
+    bucketName: coolpas-assets
+
+# resources:
+#   Resources:
+#     AssetsBucket:
+#       Type: AWS::S3::Bucket
+#       Properties:
+#         BucketName: ${self:custom.nuxt.bucketName}
+#         CorsConfiguration:
+#           CorsRules:
+#             - AllowedHeaders:
+#                 - '*'
+#               AllowedMethods:
+#                 - GET
+#                 - HEAD
+#               AllowedOrigins:
+#                 - https://${env:DOMAIN_NAME}
+#               MaxAge: 0
+
+functions:
+  nuxt:
+    memorySize: 2048
+    timeout: 30
+    handler: handler.render
+    events:
+      - schedule: rate(15 minutes)
+      - http: ANY /
+      - http: ANY /{proxy+}
