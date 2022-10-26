@@ -16,8 +16,11 @@
 
           <div class="flex items-center justify-center">
             <Button
+              type="link"
               class="flex items-center px-3 py-0.5 text-center text-white border-[1.5px] border-white rounded cursor-pointer w-min"
-              @click="downloadPdf"
+              :to="{
+                query: { ...$route.query, modal: 'PDF' },
+              }"
             >
               <div class="whitespace-nowrap">PDF</div>
             </Button>
@@ -57,10 +60,16 @@
     <template v-if="loading">
       <DialogLoading />
     </template>
+
+    <ModalPdfViewer
+      v-if="$ua.deviceType().type !== 'mobile' && $route.query.modal === 'PDF'"
+      :id="$route.query.id"
+      @close="$router.back()"
+    />
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { saveAs } from 'file-saver'
 import { DEFAULT_USER_AGENT } from '~/plugins/user-agent'
 
@@ -70,11 +79,22 @@ export default class PagesIndex extends Vue {
   loading = false
 
   mounted() {
+    this.watchRouteQuery(this.$route.query)
     window.addEventListener('resize', this.onResize)
   }
 
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
+  }
+
+  @Watch('$route.query')
+  async watchRouteQuery(query: Record<string, string | (string | null)[]>) {
+    if (query.modal === 'PDF' && this.$ua.deviceType().type === 'mobile') {
+      await this.$dialog({
+        message: '데스크탑으로 접속 하시면 PDF를 보실 수 있습니다.',
+      })
+      this.$router.back()
+    }
   }
 
   onResize() {
@@ -85,7 +105,7 @@ export default class PagesIndex extends Vue {
     this.$ua.reset(userAgent)
   }
 
-  async downloadPdf() {
+  async onClickDownloadPdf() {
     if (this.$ua.deviceType().type === 'mobile') {
       await this.$dialog({
         message: '데스크탑으로 접속 하시면 PDF를 다운받으실 수 있습니다.',
@@ -94,11 +114,11 @@ export default class PagesIndex extends Vue {
     }
 
     this.loading = true
-    await this.downloadURI()
+    await this.downloadPdf()
     this.loading = false
   }
 
-  async downloadURI() {
+  async downloadPdf() {
     const url =
       'https://etc-everything-anywhere.s3.ap-northeast-2.amazonaws.com/first_calm_open.pdf'
 

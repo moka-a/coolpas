@@ -67,6 +67,7 @@ module.exports = {
     '~/plugins/share',
     '~/plugins/user-agent',
     '~/plugins/v-outfocus',
+    '~/plugins/route-query',
   ],
 
   components: true,
