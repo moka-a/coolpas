@@ -22,7 +22,7 @@
                 query: { ...$route.query, modal: 'PDF' },
               }"
             >
-              <div class="whitespace-nowrap">PDF</div>
+              <div class="whitespace-nowrap">YES</div>
             </Button>
           </div>
         </div>
@@ -35,7 +35,7 @@
           class="flex items-center space-x-3 cursor-pointer"
           @click="explain = true"
         >
-          <div class="text-2xl font-semibold text-white">쿨파스</div>
+          <div class="text-2xl font-semibold text-white">쿨파스책방</div>
 
           <ImageSource
             class="transform pointer-events-none w-7 h-7 rotate-12"
@@ -91,7 +91,8 @@ export default class PagesIndex extends Vue {
   async watchRouteQuery(query: Record<string, string | (string | null)[]>) {
     if (query.modal === 'PDF' && this.$ua.deviceType().type === 'mobile') {
       await this.$dialog({
-        message: '데스크탑으로 접속 하시면 PDF를 보실 수 있습니다.',
+        message:
+          '잠시, 데스크탑으로 접속 하시면\n인도에서의 휴식을 만나보실 수 있습니다.',
       })
       this.$router.back()
     }
@@ -108,7 +109,8 @@ export default class PagesIndex extends Vue {
   async onClickDownloadPdf() {
     if (this.$ua.deviceType().type === 'mobile') {
       await this.$dialog({
-        message: '데스크탑으로 접속 하시면 PDF를 다운받으실 수 있습니다.',
+        message:
+          '잠시, 데스크탑으로 접속 하시면\n인도에서의 휴식을 만나보실 수 있습니다.',
       })
       return
     }
